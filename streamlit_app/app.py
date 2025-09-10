@@ -32,9 +32,9 @@ def set_font():
 # -----------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("../datasets/KOPIS/performance_eda.csv")
-    facility_df = pd.read_csv("../datasets/KOPIS/facility_df.csv")
-    price_stats_df = pd.read_csv("../datasets/KOPIS/price_stats.csv")
+    df = pd.read_csv("./datasets/KOPIS/performance_eda.csv")
+    facility_df = pd.read_csv("./datasets/KOPIS/facility_df.csv")
+    price_stats_df = pd.read_csv("./datasets/KOPIS/price_stats.csv")
     return df, facility_df, price_stats_df
 
 df, facility_df, price_stats_df = load_data()
