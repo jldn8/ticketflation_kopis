@@ -7,6 +7,7 @@ import matplotlib.font_manager as fm
 import warnings
 warnings.filterwarnings(action='ignore')
 import os
+from pathlib import Path
 
 # -----------------------
 # 기본 설정
@@ -19,10 +20,10 @@ st.title("공연 데이터 분석 및 정책 제안 대시보드")
 # 폰트 설정
 # -----------------------
 def set_font():
-    font_dir = "./fonts"
-    font_path = os.path.join(font_dir, "NotoSansKR-Regular.ttf")
+    BASE_DIR = Path(__file__).resolve().parent # app.py가 있는 폴더
+    font_path = BASE_DIR / "fonts" / "NotoSansKR-Regular.ttf"
 
-    fontprop = fm.FontProperties(fname=font_path)
+    fontprop = fm.FontProperties(fname=str(font_path))
 
     plt.rcParams["font.family"] = fontprop.get_name()
     plt.rcParams["axes.unicode_minus"] = False
@@ -32,9 +33,12 @@ def set_font():
 # -----------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("./datasets/KOPIS/performance_eda.csv")
-    facility_df = pd.read_csv("./datasets/KOPIS/facility_df.csv")
-    price_stats_df = pd.read_csv("./datasets/KOPIS/price_stats.csv")
+    BASE_DIR = Path(__file__).resolve().parent # app.py가 있는 폴더
+    DATA_DIR = BASE_DIR / "datasets" / "KOPIS"
+    
+    df = pd.read_csv(DATA_DIR / "performance_eda.csv")
+    facility_df = pd.read_csv(DATA_DIR / "facility_df.csv")
+    price_stats_df = pd.read_csv(DATA_DIR / "price_stats.csv")
     return df, facility_df, price_stats_df
 
 df, facility_df, price_stats_df = load_data()

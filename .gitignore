@@ -4,6 +4,10 @@
 # 데이터셋
 datasets/
 
+# streamlit 경로만 해제
+!streamlit_app/datasets/
+!streamlit_app/datasets/KOPIS/
+
 # Jupyter 자동 생성 파일
 .ipynb_checkpoints/
 *.ipynb_checkpoints
