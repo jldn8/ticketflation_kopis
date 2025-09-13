@@ -4,9 +4,15 @@
 # 데이터셋
 datasets/
 
+# 쓰지 않을 자료
+streamlit_app/
+
 # streamlit 경로만 해제
-!streamlit_app/datasets/
-!streamlit_app/datasets/KOPIS/
+# !streamlit_app/datasets/
+# !streamlit_app/datasets/KOPIS/
+
+# streamlit play 데이터셋만 해제
+!streamlit_play/datasets/
 
 # Jupyter 자동 생성 파일
 .ipynb_checkpoints/
