@@ -58,7 +58,13 @@ day_map = {
     "Saturday": "토요일",
     "Sunday": "일요일",
 }
-    
+
+season_map = {
+    3: "봄", 4: "봄", 5: "봄",
+    6: "여름", 7: "여름", 8: "여름",
+    9: "가을", 10: "가을", 11: "가을",
+    12: "겨울", 1: "겨울", 2: "겨울"
+}
 
 st.title("연극 분석 대시보드")
 
@@ -111,15 +117,8 @@ with tab1:
     df["분기"] = df["날짜"].dt.to_period("Q").astype(str)
 
     month = df["날짜"].dt.month
-    conditions = [
-        month.isin([3,4,5]),
-        month.isin([6,7,8]),
-        month.isin([9,10,11]),
-        month.isin([12,1,2])
-    ]
-    choices = ["봄","여름","가을","겨울"]
-
-    df["계절"] = np.select(conditions, choices)
+    
+    df["계절"] = df["날짜"].dt.month.map(season_map)
     
     # --- 단위별 집계 ---
     if chart_type == "월별":
@@ -189,18 +188,9 @@ with tab1:
     df_daily["연도"] = df_daily["날짜"].dt.year
     df_daily["월"] = df_daily["날짜"].dt.month
     df_daily["분기"] = "Q" + df_daily["날짜"].dt.quarter.astype(str)
-    month = df_daily["날짜"].dt.month
-    conditions = [
-        month.isin([3,4,5]),
-        month.isin([6,7,8]),
-        month.isin([9,10,11]),
-        month.isin([12,1,2])
-    ]
-    choices = ["봄","여름","가을","겨울"]
-
-    df_daily["계절"] = np.select(conditions, choices)
+    df_daily["계절"] = df_daily["날짜"].dt.month.map(season_map)
     
-    df_daily["요일"] = df_daily["날짜"].dt.day_name(locale="ko_KR")
+    df_daily["요일"] = df_daily["날짜"].dt.day_name().map(day_map)
     
     card_type = st.radio("카드 단위 선택", ["월별","요일별","분기별","계절별"], horizontal=True)
 
