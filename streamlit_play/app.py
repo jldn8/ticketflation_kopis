@@ -49,6 +49,16 @@ time_stats["날짜"] = pd.to_datetime(time_stats['날짜'], format="%Y%m%d")
 
 price_stats["총 티켓판매액"] = price_stats["총 티켓판매액"] * 1000
 
+day_map = {
+    "Monday": "월요일",
+    "Tuesday": "화요일",
+    "Wednesday": "수요일",
+    "Thursday": "목요일",
+    "Friday": "금요일",
+    "Saturday": "토요일",
+    "Sunday": "일요일",
+}
+    
 
 st.title("연극 분석 대시보드")
 
@@ -95,7 +105,9 @@ with tab1:
     
     df["연도"] = df["날짜"].dt.year
     df["월"] = df["날짜"].dt.month
-    df["요일"] = df["날짜"].dt.day_name(locale="ko_KR")
+    
+    df["요일"] = df["날짜"].dt.day_name().map(day_map)
+
     df["분기"] = df["날짜"].dt.to_period("Q").astype(str)
 
     month = df["날짜"].dt.month
@@ -414,7 +426,7 @@ with tab2:
     st.altair_chart(chart, use_container_width=True)
 
     # --- 요일별 히트맵 ---
-    df["요일"] = df["날짜"].dt.day_name(locale="ko_KR")
+    df["요일"] = df["날짜"].dt.day_name().map(day_map)
     order_day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일"]
     df["요일"] = pd.Categorical(df["요일"], categories=order_day, ordered=True)
 
